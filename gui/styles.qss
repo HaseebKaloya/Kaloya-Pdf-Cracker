@@ -1,0 +1,129 @@
+/* 
+    Kaloya PDF Cracker - Hacker Theme 
+    Colors: Black (#050505), Dark Grey (#121212), Neon Green (#00FF41), Red (#FF003C)
+*/
+
+QMainWindow {
+    background-color: #050505;
+}
+
+/* Sidebar Styling */
+#sidebar {
+    background-color: #0A0A0A;
+    border-right: 1px solid #111111;
+}
+
+/* Buttons */
+QPushButton {
+    background-color: #121212;
+    color: #FFFFFF;
+    border: 1px solid #333333;
+    padding: 8px;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-weight: bold;
+    font-size: 13px;
+    border-radius: 2px;
+}
+
+QPushButton:hover {
+    background-color: #1A1A1A;
+    border: 1px solid #00FF41;
+    color: #00FF41;
+}
+
+QPushButton:pressed {
+    background-color: #00FF41;
+    color: #000000;
+}
+
+/* Terminals & Inputs */
+QLineEdit {
+    background-color: #0D0D0D;
+    color: #00FF41;
+    border: 1px solid #222222;
+    padding: 5px;
+    font-family: "Consolas", monospace;
+}
+
+QLineEdit:focus {
+    border: 1px solid #00FF41;
+}
+
+QTextEdit {
+    background-color: #000000;
+    color: #00FF41;
+    border: 1px solid #222222;
+    font-family: "Consolas", monospace;
+    font-size: 13px;
+    padding: 10px;
+}
+
+/* Labels */
+QLabel {
+    color: #DDDDDD;
+    font-family: "Segoe UI", Arial, sans-serif;
+    font-size: 13px;
+}
+
+#titleLabel {
+    color: #00FF41;
+    font-family: "Consolas", monospace;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#ownerLabel {
+    color: #00FF41;
+    font-size: 16px;
+    font-family: "Consolas", monospace;
+}
+
+#subLabel {
+    color: #888888;
+    font-size: 12px;
+}
+
+/* Progress Bar */
+QProgressBar {
+    border: 1px solid #333333;
+    background-color: #0A0A0A;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+QProgressBar::chunk {
+    background-color: #00FF41;
+}
+
+/* Group Boxes */
+QGroupBox {
+    border: 1px solid #333333;
+    color: #00FF41;
+    font-family: "Consolas", monospace;
+    margin-top: 1ex;
+    font-weight: bold;
+}
+
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    padding: 0 3px;
+}
+
+/* Radio Buttons */
+QRadioButton {
+    color: #DDDDDD;
+    font-family: "Segoe UI", sans-serif;
+}
+QRadioButton::indicator {
+    width: 13px;
+    height: 13px;
+}
+QRadioButton::indicator::unchecked {
+    border: 1px solid #333333;
+    background: #0D0D0D;
+}
+QRadioButton::indicator::checked {
+    border: 1px solid #00FF41;
+    background: #00FF41;
+}
