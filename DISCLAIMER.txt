@@ -1,0 +1,52 @@
+KALOYA PDF CRACKER v1.0 — END USER LICENSE AND DISCLAIMER
+===========================================================
+
+Copyright (c) 2026 Haseeb Kaloya. All rights reserved.
+
+IMPORTANT: READ THIS AGREEMENT CAREFULLY BEFORE INSTALLING OR USING
+THIS SOFTWARE. BY INSTALLING, COPYING, OR OTHERWISE USING KALOYA PDF
+CRACKER, YOU AGREE TO THE TERMS AND CONDITIONS OF THIS AGREEMENT.
+IF YOU DO NOT AGREE, DO NOT INSTALL OR USE THIS SOFTWARE.
+
+1. LICENSE GRANT
+   Haseeb Kaloya ("Author") grants you a non-exclusive, non-transferable,
+   limited license to install and use Kaloya PDF Cracker solely for
+   personal, non-commercial, and lawful purposes.
+
+2. PERMITTED USE
+   This software is designed exclusively for:
+   - Recovering passwords from PDF documents that you own.
+   - Authorized cryptographic research and testing in environments
+     you control and have explicit written permission to test.
+
+3. PROHIBITED USE
+   You may NOT use this software to:
+   - Access, decrypt, or recover passwords from PDF files or any
+     digital property belonging to third parties without their explicit
+     written consent.
+   - Violate any applicable local, state, national, or international law.
+   - Distribute, sublicense, or resell this software or derivative works.
+
+4. DISCLAIMER OF WARRANTY
+   THIS SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT.
+   IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,
+   INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES ARISING IN
+   ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+   POSSIBILITY OF SUCH DAMAGE.
+
+5. SOLE LIABILITY
+   The user bears full and exclusive legal responsibility for all actions
+   performed using this software. The Author is completely immunized from
+   any civil or criminal liability arising from misuse, unauthorized use,
+   or any breach of law by the end user.
+
+6. SCOPE OF AGREEMENT
+   This license governs the use of Kaloya PDF Cracker and all associated
+   binary components, including but not limited to the embedded John the
+   Ripper engine.
+
+7. ACCEPTANCE
+   By proceeding with the installation, you confirm that you have read,
+   understood, and agreed to the terms of this agreement.

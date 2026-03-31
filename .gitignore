@@ -1,0 +1,45 @@
+# Kaloya PDF Cracker — .gitignore
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# PyInstaller build artifacts
+build/
+dist/
+*.spec.bak
+GUIDE.txt
+
+# Runtime-generated files
+hash.txt
+result.txt
+
+# John the Ripper runtime state
+john/run/john.pot
+john/run/john.log
+john/run/*.session
+john/run/john.rec
+
+# Virtual environments
+venv/
+env/
+.venv/
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Installer build output
+installer/Output/
+
+# Logs
+*.log
