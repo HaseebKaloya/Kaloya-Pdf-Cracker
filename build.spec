@@ -101,6 +101,9 @@ exe = EXE(
     icon='gui/logo.ico',            # Application icon
     version='version_info.txt',     # Embed Metadata (Copyright, Name, Version)
     contents_directory='.',         # Output dependencies to Root Folder
+    # ── UAC: request admin elevation on double-click ──────────────────────
+    uac_admin=True,                 # Embeds requireAdministrator in the manifest
+    manifest='uac_manifest.xml',    # Full manifest with UAC + DPI awareness
 )
 
 coll = COLLECT(
