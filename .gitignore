@@ -1,45 +1,60 @@
 # Kaloya PDF Cracker — .gitignore
+# ─────────────────────────────────────────────────────────────────────────────
 
-# Python
+# ── Python ────────────────────────────────────────────────────────────────────
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
+*.egg-info/
+*.egg
+.eggs/
 
-# PyInstaller build artifacts
+# ── PyInstaller build artifacts (never commit compiled output) ────────────────
 build/
 dist/
 *.spec.bak
-GUIDE.txt
 
-# Runtime-generated files
+# ── Runtime-generated files ───────────────────────────────────────────────────
 hash.txt
 result.txt
 
-# John the Ripper runtime state
+# ── John the Ripper runtime state ────────────────────────────────────────────
 john/run/john.pot
 john/run/john.log
 john/run/*.session
 john/run/john.rec
 
-# Virtual environments
+# ── Installer build output (the .exe goes to GitHub Releases, not the repo) ──
+installer/Output/
+
+# ── Old/redundant image files (replaced by correct .bmp versions) ─────────────
+installer/wizard_sidebar.png
+installer/wizard_header.png
+
+# ── Virtual environments ──────────────────────────────────────────────────────
 venv/
 env/
 .venv/
 
-# IDE files
+# ── IDE / editor files ────────────────────────────────────────────────────────
 .vscode/
 .idea/
 *.sublime-project
 *.sublime-workspace
 
-# OS files
+# ── OS-generated files ────────────────────────────────────────────────────────
 .DS_Store
 Thumbs.db
 desktop.ini
 
-# Installer build output
-installer/Output/
-
-# Logs
+# ── Logs ─────────────────────────────────────────────────────────────────────
 *.log
+
+# ── Temporary / scratch files ─────────────────────────────────────────────────
+*.tmp
+*.bak
+*.swp
+
+# ── Local platform posting guides (private reference only) ────────────────────
+POSTING_PLATFORM_GUIDE/
