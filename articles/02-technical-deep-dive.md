@@ -1,10 +1,12 @@
 ---
-title: "Wrapping John the Ripper in a PyQt5 GUI on Windows: Architecture and Hard-Won Lessons"
+title: 'Wrapping John the Ripper in a PyQt5 GUI on Windows: Architecture and Hard-Won Lessons'
 published: true
-description: "A technical deep-dive into how Kaloya PDF Cracker uses QThread for non-blocking UI, UAC manifests for auto-elevation, and Inno Setup 6 for professional Windows packaging."
-tags: python, tutorial, security, pyqt5
-cover_image: https://raw.githubusercontent.com/HaseebKaloya/Kaloya-Pdf-Cracker/main/docs/images/hero_banner.png
+description: 'A technical deep-dive into how Kaloya PDF Cracker uses QThread for non-blocking UI, UAC manifests for auto-elevation, and Inno Setup 6 for professional Windows packaging.'
+tags: 'python, tutorial, security, pyqt5'
+cover_image: 'https://raw.githubusercontent.com/HaseebKaloya/Kaloya-Pdf-Cracker/main/docs/images/hero_banner.png'
 series: Kaloya PDF Cracker
+id: 3448770
+date: '2026-04-03T08:21:45Z'
 ---
 
 # Wrapping John the Ripper in a PyQt5 GUI on Windows

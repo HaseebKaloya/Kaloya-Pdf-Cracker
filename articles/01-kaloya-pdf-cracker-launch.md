@@ -1,10 +1,12 @@
 ---
-title: "I Built a Free, Offline PDF Password Cracker for Windows — Here is Why"
+title: 'I Built a Free, Offline PDF Password Cracker for Windows — Here is Why'
 published: true
-description: "Kaloya PDF Cracker is a professional, open-source Windows desktop application for recovering forgotten PDF passwords. It runs 100% offline using the John the Ripper engine wrapped in a sleek PyQt5 GUI."
-tags: python, security, opensource, windows
-cover_image: https://raw.githubusercontent.com/HaseebKaloya/Kaloya-Pdf-Cracker/main/docs/images/hero_banner.png
+description: 'Kaloya PDF Cracker is a professional, open-source Windows desktop application for recovering forgotten PDF passwords. It runs 100% offline using the John the Ripper engine wrapped in a sleek PyQt5 GUI.'
+tags: 'python, security, opensource, windows'
+cover_image: 'https://raw.githubusercontent.com/HaseebKaloya/Kaloya-Pdf-Cracker/main/docs/images/hero_banner.png'
 series: Kaloya PDF Cracker
+id: 3448771
+date: '2026-04-03T08:21:46Z'
 ---
 
 # I Built a Free, Offline PDF Password Cracker for Windows
