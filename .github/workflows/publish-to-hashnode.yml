@@ -1,0 +1,29 @@
+name: Publish to Hashnode
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'articles/**/*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  auto_publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Publish Articles to Hashnode
+        uses: PritishMishraa/hashnode-publish-action@v1.0.2
+        with:
+          src: "articles"
+          HASHNODE_PAT: ${{ secrets.HASHNODE_PERSONAL_ACCESS_TOKEN }}
