@@ -253,3 +253,5 @@ The correct solution is to tell the user to do it themselves. The installer fini
 If you have questions about the QThread implementation, the UAC manifest embedding, or the Inno Setup configuration, ask in the comments and I will answer in detail.
  
   
+   
+      
