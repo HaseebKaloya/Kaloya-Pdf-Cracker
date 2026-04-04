@@ -25,5 +25,5 @@ jobs:
       - name: Publish Articles to Hashnode
         uses: PritishMishraa/hashnode-publish-action@v1.0.2
         with:
-          src: "articles"
+          src: "${{ github.workspace }}/articles"
           HASHNODE_PAT: ${{ secrets.HASHNODE_PERSONAL_ACCESS_TOKEN }}
