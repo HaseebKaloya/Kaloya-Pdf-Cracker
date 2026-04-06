@@ -8,22 +8,26 @@ on:
       - 'articles/**/*.md'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  auto_publish:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Publish Articles to Hashnode
-        uses: PritishMishraa/hashnode-publish-action@v1.0.2
-        with:
-          src: "${{ github.workspace }}/articles"
+      - name: Publish to Hashnode via GraphQL
+        run: node .github/scripts/publish-hashnode.js
+        env:
           HASHNODE_PAT: ${{ secrets.HASHNODE_PERSONAL_ACCESS_TOKEN }}
+          HASHNODE_PUBLICATION_ID: ${{ secrets.HASHNODE_PUBLICATION_ID }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
