@@ -122,4 +122,3 @@ If this project is useful to you, a star on the repository goes a long way towar
 ---
 
 **Legal Notice:** Kaloya PDF Cracker is intended strictly for recovering passwords from PDF documents you legally own, or for authorised security auditing in environments you control. The author accepts no liability for misuse.
-
