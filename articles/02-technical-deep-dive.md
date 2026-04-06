@@ -251,3 +251,4 @@ The correct solution is to tell the user to do it themselves. The installer fini
 **Download the Installer:** [https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases)
 
 If you have questions about the QThread implementation, the UAC manifest embedding, or the Inno Setup configuration, ask in the comments and I will answer in detail.
+
