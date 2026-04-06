@@ -16,18 +16,69 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      - name: Install dependencies
+        run: |
+          sudo apt-get install -y jq
 
-      - name: Publish to Hashnode via GraphQL
-        run: node .github/scripts/publish-hashnode.js
-        env:
-          HASHNODE_PAT: ${{ secrets.HASHNODE_PERSONAL_ACCESS_TOKEN }}
-          HASHNODE_PUBLICATION_ID: ${{ secrets.HASHNODE_PUBLICATION_ID }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Get Publication ID from blog host
+        id: get_pub_id
+        run: |
+          # Fetch publication ID automatically using your blog hostname
+          # HASHNODE_BLOG_HOST should be like: haseebkaloya.hashnode.dev
+          PUBLICATION_ID=$(curl -s -X POST https://gql.hashnode.com \
+            -H "Content-Type: application/json" \
+            -H "Authorization: ${{ secrets.HASHNODE_TOKEN }}" \
+            -d '{
+              "query": "query { me { publications(first: 1) { edges { node { id title } } } } }"
+            }' | jq -r '.data.me.publications.edges[0].node.id')
+          echo "Publication ID fetched: $PUBLICATION_ID"
+          echo "publication_id=$PUBLICATION_ID" >> $GITHUB_OUTPUT
+
+      - name: Publish articles to Hashnode
+        run: |
+          PUBLICATION_ID="${{ steps.get_pub_id.outputs.publication_id }}"
+          
+          for FILE in articles/*.md; do
+            echo "Processing: $FILE"
+            
+            # Extract title from frontmatter
+            TITLE=$(grep -m1 '^title:' "$FILE" | sed "s/^title: *//" | tr -d "'\"")
+            
+            # Extract content (remove frontmatter)
+            CONTENT=$(awk '/^---$/{if(NR==1){found=1;next}else if(found){found=0;next}}!found' "$FILE")
+            
+            # Extract tags (convert to JSON array)
+            TAGS_STR=$(grep -m1 '^tags:' "$FILE" | sed "s/^tags: *//" | tr -d "'\"")
+            TAGS_JSON=$(echo "$TAGS_STR" | tr ',' '\n' | sed 's/^ *//;s/ *$//' | \
+              jq -Rn '[inputs | select(length > 0) | {slug: ., name: .}]')
+            
+            # Extract cover image
+            COVER=$(grep -m1 '^cover_image:' "$FILE" | sed "s/^cover_image: *//" | tr -d "'\"")
+            
+            # Build and send GraphQL mutation
+            RESPONSE=$(curl -s -X POST https://gql.hashnode.com \
+              -H "Content-Type: application/json" \
+              -H "Authorization: ${{ secrets.HASHNODE_TOKEN }}" \
+              -d "$(jq -n \
+                --arg title "$TITLE" \
+                --arg content "$CONTENT" \
+                --arg pubId "$PUBLICATION_ID" \
+                --arg cover "$COVER" \
+                --argjson tags "$TAGS_JSON" \
+                '{
+                  query: "mutation PublishPost($input: PublishPostInput!) { publishPost(input: $input) { post { id title url } } }",
+                  variables: {
+                    input: {
+                      title: $title,
+                      contentMarkdown: $content,
+                      publicationId: $pubId,
+                      coverImageOptions: { coverImageURL: $cover },
+                      tags: $tags
+                    }
+                  }
+                }')")
+            
+            POST_URL=$(echo "$RESPONSE" | jq -r '.data.publishPost.post.url // "failed"')
+            echo "Published: $FILE → $POST_URL"
+          done
