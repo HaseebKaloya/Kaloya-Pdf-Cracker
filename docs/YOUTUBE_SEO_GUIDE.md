@@ -33,26 +33,23 @@ YouTube allows you to place a persistent branding watermark in the bottom-right 
 * **Handle:** `@haseeb.kaloya`
 * **Channel Description (Copy & Paste Everything Below):**
   ```text
-  Welcome to the official channel of Haseeb Kaloya — Full Stack & AI Developer, Software Engineer, and Automation Specialist.
+  Official channel of Haseeb Kaloya — Software Engineer, Systems Developer, and Security Researcher specializing in Python architecture, cryptography, and automation.
 
-  Here, we build and break real-world software. From high-performance Python desktop suites and ethical cybersecurity tools to custom AI integrations, browser extensions, and workflow automations — this channel is dedicated to practical, production-grade engineering without the fluff.
+  This channel provides technical deep dives into native software engineering, defensive security tooling, and high-performance automation.
 
-  🚀 WHAT YOU'LL FIND ON THIS CHANNEL:
-  • 🛡️ Cybersecurity & Defensive Cryptography: Offline password recovery suites, hash auditing engines (John the Ripper, AVX2 optimization), and secure software architecture.
-  • 💻 Python Desktop Engineering: Building modern, multi-threaded GUI applications using PyQt5/PySide, SQLite WAL persistence, and C/C++ engine integrations.
-  • 🤖 Automation & Smart Systems: Batch media extraction suites (Bulk Video Downloader), web scraping engines, and AI model workflows that eliminate repetitive tasks.
-  • 🧩 Browser & Web Extension Development: Chrome Extensions (Manifest V3) for automated formatting, UI utilities, and social platform management.
-  • 📂 Open-Source Breakdowns: Complete code walkthroughs, architectural breakdowns, and free open-source releases you can inspect, audit, and use.
+  TECHNICAL FOCUS:
+  - Cryptography & Security Tools: Offline password recovery systems, hash auditing (John the Ripper, AVX2 acceleration), and defensive security software.
+  - Python Desktop Architecture: Multi-threaded GUI applications using PyQt5/PySide, SQLite WAL persistence, and C/C++ engine integrations.
+  - Systems Automation: High-throughput batch media processing, intelligent scrapers, and workflow automation suites.
+  - Browser Extensions: Production Manifest V3 extensions for input formatting and process automation.
+  - Open-Source Code Audits: Deep-dive architecture reviews and repository breakdowns.
 
-  💡 ABOUT HASEEB KALOYA:
-  I design custom software, build offline-first tools, and engineer automated systems that solve complex problems. All major utilities featured on this channel are backed by public repositories and release binaries available on my GitHub.
+  All tools featured are built with a focus on local execution, zero-telemetry privacy, and performance.
 
-  🔗 OFFICIAL LINKS & CONNECT:
-  • 🌐 GitHub Portfolio: https://github.com/HaseebKaloya
-  • 💻 Featured Repositories: Kaloya-PDF-Cracker, Bulk-Video-Downloader, Kaloya-ID-Formatter
-  • 📧 Business, Collaborations & Inquiries: contact.haseebkaloya@gmail.com
-
-  🔔 Subscribe and turn on notifications to stay ahead in Python engineering, cybersecurity tooling, and smart automation!
+  OFFICIAL LINKS:
+  - GitHub: https://github.com/HaseebKaloya
+  - Featured Repositories: Kaloya-PDF-Cracker | Bulk-Video-Downloader | Kaloya-ID-Formatter
+  - Technical Inquiries & Business: contact.haseebkaloya@gmail.com
   ```
 * **Links:**
   * Title: `GitHub Profile` ➔ URL: `https://github.com/HaseebKaloya`
