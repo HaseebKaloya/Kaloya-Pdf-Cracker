@@ -10,13 +10,13 @@
 
   <description>Kaloya PDF Cracker - PDF Password Recovery Tool</description>
 
-  <!-- ── UAC elevation request ────────────────────────────────────────────── -->
-  <!-- requireAdministrator  → Windows shows the UAC shield on double-click   -->
-  <!-- and prompts the user to allow admin access before launching.           -->
+  <!-- ── Standard User Execution (asInvoker) ─────────────────────────────────── -->
+  <!-- asInvoker → Runs with standard user privileges. No UAC prompt on launch,  -->
+  <!-- and no yellow/blue admin shield icon overlay on the desktop shortcut.     -->
   <trustInfo xmlns="urn:schemas-microsoft-com:asm.v3">
     <security>
       <requestedPrivileges>
-        <requestedExecutionLevel level="requireAdministrator" uiAccess="false"/>
+        <requestedExecutionLevel level="asInvoker" uiAccess="false"/>
       </requestedPrivileges>
     </security>
   </trustInfo>

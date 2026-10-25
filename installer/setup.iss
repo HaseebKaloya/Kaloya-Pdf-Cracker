@@ -16,7 +16,7 @@ AppName                      = {#AppName}
 AppVersion                   = {#AppVersion}
 AppVerName                   = {#AppName} v{#AppVersion}
 AppPublisher                 = {#AppPublisher}
-AppPublisherURL               = {#AppURL}
+AppPublisherURL              = {#AppURL}
 AppSupportURL                = {#AppURL}/issues
 AppUpdatesURL                = {#AppURL}/releases
 AppCopyright                 = Copyright (C) 2026 {#AppPublisher}. All rights reserved.
@@ -27,15 +27,16 @@ VersionInfoCopyright         = Copyright (C) 2026 Haseeb Kaloya
 DefaultDirName               = {autopf}\{#AppName}
 DefaultGroupName             = {#AppName}
 AllowNoIcons                 = yes
-PrivilegesRequired           = admin
-PrivilegesRequiredOverridesAllowed = dialog
+PrivilegesRequired           = lowest
+PrivilegesRequiredOverridesAllowed = commandline dialog
 SetupIconFile                = ..\gui\logo.ico
 UninstallDisplayIcon         = {app}\{#AppExeName}
 UninstallDisplayName         = {#AppName} v{#AppVersion}
-WizardStyle                  = modern
+WizardStyle                  = modern dark
 WizardImageFile              = wizard_sidebar.bmp
 WizardSmallImageFile         = wizard_header.bmp
-WizardImageStretch           = no
+WizardImageStretch           = yes
+WizardImageBackColor         = #080C0E
 WizardImageAlphaFormat       = none
 LicenseFile                  = ..\DISCLAIMER.txt
 OutputDir                    = Output
@@ -58,13 +59,12 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [CustomMessages]
 english.WelcomeLabel1=Welcome to [name] Setup
-english.WelcomeLabel2=This wizard will install [name/ver] on your computer.%n%n[name] is a high-performance PDF password recovery tool powered by John the Ripper — 100%% local, no internet, no telemetry.%n%nIMPORTANT: This tool requires Administrator access to function. Windows will automatically show a UAC prompt on each launch.%n%nClick Next to continue.
-english.FinishedLabel=Installation of [name] v[ver] is complete!%n%nA UAC prompt will appear each time you launch the application — this is intentional and required for full functionality.%n%nTo pin to your Taskbar: right-click the shortcut and choose "Pin to taskbar".%n%nClick Finish to exit Setup.
+english.WelcomeLabel2=This wizard will install [name/ver] on your computer.%n%nDeveloped by Haseeb Kaloya (Lead Developer)%nGitHub: https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker%n%n[name] is a high-performance PDF password recovery tool powered by John the Ripper — 100%% local, no internet, no telemetry.%n%nClick Next to continue.
+english.FinishedLabel=Installation of [name] v[ver] is complete!%n%nDeveloped by Haseeb Kaloya.%nGitHub: https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker%n%nTo pin to your Taskbar: right-click the shortcut and choose "Pin to taskbar".%n%nClick Finish to exit Setup.
 
 [Tasks]
 Name: "desktopicon"; Description: "Create a &Desktop shortcut"; GroupDescription: "Additional shortcuts:"; Flags: unchecked
 Name: "startupicon"; Description: "Launch {#AppName} when Windows &starts"; GroupDescription: "Additional shortcuts:"; Flags: unchecked
-Name: "launchafter"; Description: "&Launch {#AppName} after installation finishes"; GroupDescription: "After install:"; Flags: checkedonce
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -73,75 +73,62 @@ Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs 
 Name: "{app}"; Permissions: users-modify
 
 [Icons]
-Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExeName}"; Comment: "Launch Kaloya PDF Cracker (runs as Administrator)"
+Name: "{group}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExeName}"; Comment: "Launch Kaloya PDF Cracker"
 Name: "{group}\Uninstall {#AppName}"; Filename: "{uninstallexe}"; Comment: "Remove Kaloya PDF Cracker from this computer"
-Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExeName}"; Comment: "Launch Kaloya PDF Cracker (runs as Administrator)"; Tasks: desktopicon
+Name: "{autodesktop}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExeName}"; Comment: "Launch Kaloya PDF Cracker"; Tasks: desktopicon
 Name: "{commonstartup}\{#AppName}"; Filename: "{app}\{#AppExeName}"; WorkingDir: "{app}"; IconFilename: "{app}\{#AppExeName}"; Tasks: startupicon
 
 [Run]
-; FIX: Removed "runasoriginaluser" — it conflicts with requireAdministrator manifest
-;      causing an error dialog after install. Using shellexec instead which
-;      correctly triggers UAC elevation via ShellExecuteEx.
-Filename: "{app}\{#AppExeName}"; Description: "Launch {#AppName} v{#AppVersion} now"; Flags: nowait postinstall skipifsilent shellexec; Tasks: launchafter
+Filename: "{app}\{#AppExeName}"; Description: "Launch {#AppName} v{#AppVersion} now"; Flags: nowait postinstall skipifsilent shellexec
 
 [UninstallRun]
-Filename: "taskkill.exe"; Parameters: "/F /IM {#AppExeName}"; Flags: runhidden; RunOnceId: "KillBeforeUninstall"
+Filename: "taskkill.exe"; Parameters: "/F /IM {#AppExeName}"; Flags: runhidden; RunOnceId: "KillAppBeforeUninstall"
+Filename: "taskkill.exe"; Parameters: "/F /IM john.exe"; Flags: runhidden; RunOnceId: "KillJohnBeforeUninstall"
 
 [UninstallDelete]
 Type: files;      Name: "{app}\hash.txt"
-Type: files;      Name: "{app}\result.txt"
-Type: files;      Name: "{app}\john\run\john.pot"
 Type: files;      Name: "{app}\john\run\john.log"
 Type: files;      Name: "{app}\*.log"
+Type: dirifempty; Name: "{app}\john\run"
+Type: dirifempty; Name: "{app}\john"
 Type: dirifempty; Name: "{app}"
 
-[Registry]
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting('AppId')}_is1"; ValueType: string; ValueName: "DisplayVersion"; ValueData: "{#AppVersion}"; Flags: uninsdeletevalue
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting('AppId')}_is1"; ValueType: string; ValueName: "Publisher"; ValueData: "{#AppPublisher}"; Flags: uninsdeletevalue
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting('AppId')}_is1"; ValueType: string; ValueName: "URLInfoAbout"; ValueData: "{#AppURL}"; Flags: uninsdeletevalue
-Root: HKLM; Subkey: "Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting('AppId')}_is1"; ValueType: dword; ValueName: "EstimatedSize"; ValueData: "150000"; Flags: uninsdeletevalue
-
 [Code]
-// ─── Upgrade Detection & Silent Removal ──────────────────────────────────────
-function GetUninstallString(): String;
+// ─── Clickable Developer Links & Verification ───────────────────────────────
+procedure OpenUrl(Url: String);
 var
-  sUnInstPath: String;
-  sUnInstallString: String;
+  ErrorCode: Integer;
 begin
-  sUnInstPath := ExpandConstant('Software\Microsoft\Windows\CurrentVersion\Uninstall\{#SetupSetting("AppId")}_is1');
-  sUnInstallString := '';
-  if not RegQueryStringValue(HKLM, sUnInstPath, 'UninstallString', sUnInstallString) then
-    RegQueryStringValue(HKCU, sUnInstPath, 'UninstallString', sUnInstallString);
-  Result := sUnInstallString;
+  ShellExec('open', Url, '', '', SW_SHOWNORMAL, ewNoWait, ErrorCode);
 end;
 
-function IsUpgrade(): Boolean;
+procedure GitHubLinkClick(Sender: TObject);
 begin
-  Result := (GetUninstallString() <> '');
+  OpenUrl('https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker');
 end;
 
-function UnInstallOldVersion(): Integer;
+procedure InitializeWizard();
 var
-  sUnInstallString: String;
-  iResultCode: Integer;
+  DevLabel: TLabel;
+  GitHubLink: TLabel;
 begin
-  Result := 0;
-  sUnInstallString := GetUninstallString();
-  if sUnInstallString <> '' then begin
-    sUnInstallString := RemoveQuotes(sUnInstallString);
-    if Exec(sUnInstallString, '/SILENT /NORESTART /SUPPRESSMSGBOXES', '', SW_HIDE, ewWaitUntilTerminated, iResultCode) then
-      Result := iResultCode
-    else
-      Result := 1;
-  end;
-end;
+  // Developer Credit & Clickable GitHub link on the Finished Page
+  DevLabel := TLabel.Create(WizardForm);
+  DevLabel.Parent := WizardForm.FinishedPage;
+  DevLabel.Caption := 'Lead Developer: Haseeb Kaloya';
+  DevLabel.Left := WizardForm.RunList.Left;
+  DevLabel.Top := WizardForm.RunList.Top + WizardForm.RunList.Height + 14;
+  DevLabel.Font.Style := [fsBold];
 
-procedure CurStepChanged(CurStep: TSetupStep);
-begin
-  if (CurStep = ssInstall) then begin
-    if IsUpgrade() then
-      UnInstallOldVersion();
-  end;
+  GitHubLink := TLabel.Create(WizardForm);
+  GitHubLink.Parent := WizardForm.FinishedPage;
+  GitHubLink.Caption := 'Visit Project GitHub: HaseebKaloya/Kaloya-Pdf-Cracker';
+  GitHubLink.Left := WizardForm.RunList.Left;
+  GitHubLink.Top := DevLabel.Top + 18;
+  GitHubLink.Cursor := crHand;
+  GitHubLink.Font.Color := $0041FF00;
+  GitHubLink.Font.Style := [fsUnderline];
+  GitHubLink.OnClick := @GitHubLinkClick;
 end;
 
 // ─── Pre-Install: Enforce 64-bit OS ──────────────────────────────────────────

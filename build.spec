@@ -11,12 +11,13 @@ block_cipher = None
 # Collect all data files that must travel with the binary
 added_files = [
     # GUI assets
-    ('gui/logo.ico',   'gui'),
-    ('gui/logo.png',   'gui'),
-    ('gui/styles.qss', 'gui'),
+    ('gui/logo.ico',        'gui'),
+    ('gui/logo.png',        'gui'),
+    ('gui/HaseebKaloya.jpg', 'gui'),
+    ('gui/styles.qss',      'gui'),
 
     # John the Ripper — entire run directory (binaries + configs + .chr files)
-    ('john/run/*',     'john/run'),
+    ('john/run/*',          'john/run'),
 ]
 
 a = Analysis(
@@ -101,9 +102,9 @@ exe = EXE(
     icon='gui/logo.ico',            # Application icon
     version='version_info.txt',     # Embed Metadata (Copyright, Name, Version)
     contents_directory='.',         # Output dependencies to Root Folder
-    # ── UAC: request admin elevation on double-click ──────────────────────
-    uac_admin=True,                 # Embeds requireAdministrator in the manifest
-    manifest='uac_manifest.xml',    # Full manifest with UAC + DPI awareness
+    # ── UAC: run as invoker (standard user privileges, clean icon) ────────
+    uac_admin=False,                # No admin shield overlay on icon
+    manifest='uac_manifest.xml',    # Full manifest with asInvoker + DPI awareness
 )
 
 coll = COLLECT(

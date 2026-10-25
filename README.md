@@ -2,11 +2,12 @@
 
 ![Kaloya PDF Cracker — Hero Banner](docs/images/hero_banner.png)
 
-[![Platform](https://img.shields.io/badge/platform-Windows-blue?style=flat-square&logo=windows)](https://github.com/haseebkaloya/kaloya-pdf-cracker/releases)
+[![Platform](https://img.shields.io/badge/platform-Windows%20%7C%20Linux-blue?style=flat-square&logo=windows)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases)
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen?style=flat-square)](https://github.com/haseebkaloya/kaloya-pdf-cracker/releases)
-[![Stars](https://img.shields.io/github/stars/haseebkaloya/kaloya-pdf-cracker?style=flat-square)](https://github.com/haseebkaloya/kaloya-pdf-cracker/stargazers)
+[![Version](https://img.shields.io/badge/version-1.0.0-brightgreen?style=flat-square)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases)
+[![Wiki](https://img.shields.io/badge/documentation-GitHub%20Wiki-brightgreen?style=flat-square&logo=gitbook)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/wiki)
+[![Stars](https://img.shields.io/github/stars/HaseebKaloya/Kaloya-Pdf-Cracker?style=flat-square)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/stargazers)
 
 </div>
 
@@ -65,7 +66,7 @@ This is not a script. It is a deployable desktop application, built for Windows,
 
 ### Option A — Download the Installer (Recommended)
 
-1. Go to the [Releases page](https://github.com/haseebkaloya/kaloya-pdf-cracker/releases).
+1. Go to the [Releases page](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases).
 2. Download **`KaloyaPDFCracker_Setup_v1.0.0.exe`**.
 3. Run the installer and follow the setup wizard.
 4. Launch **Kaloya PDF Cracker** from the Desktop or Start Menu.
@@ -80,7 +81,7 @@ No Python installation required. All dependencies are bundled.
 
 ```powershell
 # 1. Clone the repository
-git clone https://github.com/haseebkaloya/kaloya-pdf-cracker.git
+git clone https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker.git
 cd kaloya-pdf-cracker
 
 # 2. Install dependencies
@@ -182,12 +183,22 @@ kaloya-pdf-cracker/
 
 ---
 
+## Documentation and Wiki
+
+Comprehensive technical manuals, attack vector specifications, Linux deployment details, and diagnostics are published in the official **[GitHub Wiki](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/wiki)**:
+
+- **[Wiki Home](wiki/Home.md)**: Technical overview, architectural principles, and quick-start instructions.
+- **[Installation and Setup](wiki/Installation-and-Setup.md)**: Standalone Windows installer and environment configuration.
+- **[Usage and Attack Vectors](wiki/Usage-and-Attack-Vectors.md)**: Detailed analysis of Dynamic Digits and Dictionary attack modes.
+- **[Linux Platform Guide](wiki/Linux-Guide.md)**: Runtime architecture, engine resolution, and automated package management.
+- **[Troubleshooting and FAQ](wiki/Troubleshooting-and-FAQ.md)**: Diagnostic solutions, heuristic scanner notices, and FAQs.
+
+---
+
 ## Known Limitations
 
-- **Windows only.** The bundled John the Ripper binaries are compiled for 64-bit Windows. Running from source on Linux or macOS would require a separately compiled JtR binary and path adjustments in `cracker.py`.
 - **Numeric masks only (GUI).** The GUI exposes digit-only brute-force. For alpha or custom masks, run `cracker.py` directly from the command line with the `--wordlist` or `--digits` flag.
-- **PDF revision 6 (AES-256-R6).** John the Ripper's PDF format supports this revision, but performance is significantly slower than RC4 or AES-128 due to the key derivation cost.
-- **No GPU acceleration in this build.** The bundled JtR is the CPU build. OpenCL/CUDA builds exist upstream and can be substituted manually by replacing the appropriate executable in `john/run/`.
+- **PDF revision 6 (AES-256-R6).** John the Ripper's PDF format supports this revision, but performance is significantly slower than RC4 or AES-128 due to the high key derivation cost.
 
 ---
 
@@ -195,11 +206,13 @@ kaloya-pdf-cracker/
 
 | Feature | Status |
 |---|---|
+| Native Linux Support (Runtime Auto-Install) | Completed |
+| Zero-UAC Standard User Installer (`asInvoker`) | Completed |
+| High-DPI Modern Dark Installer Artwork | Completed |
 | Alpha/alphanumeric mask support via GUI | Planned |
 | Progress percentage and estimated time remaining | Planned |
 | Multi-PDF batch mode | Under consideration |
 | GPU acceleration (OpenCL build) | Under consideration |
-| Linux/macOS source support | Under consideration |
 
 
 ---
@@ -215,6 +228,5 @@ The bundled John the Ripper binaries are distributed under their own license. Se
 ## Contact
 
 **Developer:** Haseeb Kaloya
-**Email:** haseebkaloya@gmail.com
-**GitHub:** [github.com/haseebkaloya](https://github.com/haseebkaloya)
-**LinkedIn:** [linkedin.com/in/haseeb-kaloya-872194329](https://www.linkedin.com/in/haseeb-kaloya-872194329)
+**Email:** contact.haseebkaloya@gmail.com
+**GitHub:** [github.com/HaseebKaloya](https://github.com/HaseebKaloya)

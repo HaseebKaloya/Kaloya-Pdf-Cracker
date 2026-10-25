@@ -11,6 +11,8 @@ import time
 import subprocess
 import re
 import threading
+import shutil
+import platform
 from typing import Optional
 
 # ─────────────────────────────────────────────
@@ -26,7 +28,7 @@ RESET  = "\033[0m"
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 JOHN_DIR   = os.path.join(SCRIPT_DIR, "john", "run")
 
-# John executables in priority order (fastest first)
+# Windows John executables in priority order (fastest first)
 JOHN_CANDIDATES = [
     "john-avx2.exe",
     "john-avx.exe",
@@ -37,12 +39,128 @@ JOHN_CANDIDATES = [
 
 
 def find_john() -> Optional[str]:
-    """Find the best (fastest) available john executable."""
-    for name in JOHN_CANDIDATES:
-        path = os.path.join(JOHN_DIR, name)
-        if os.path.isfile(path):
-            return path
-    return None
+    """Find the best available john executable (Windows or Linux)."""
+    if sys.platform == "win32":
+        for name in JOHN_CANDIDATES:
+            path = os.path.join(JOHN_DIR, name)
+            if os.path.isfile(path):
+                return path
+        return None
+    else:
+        # 1. Check system PATH (standard for Kali, Parrot, Ubuntu)
+        which_john = shutil.which("john")
+        if which_john:
+            return which_john
+
+        # 2. Check standard Linux install locations
+        common_paths = [
+            "/usr/sbin/john",
+            "/usr/bin/john",
+            "/usr/local/bin/john",
+            "/snap/bin/john",
+        ]
+        for cp in common_paths:
+            if os.path.isfile(cp) and os.access(cp, os.X_OK):
+                return cp
+
+        # 3. Check local bundled binary if present
+        local_elf = os.path.join(JOHN_DIR, "john")
+        if os.path.isfile(local_elf) and os.access(local_elf, os.X_OK):
+            return local_elf
+
+        return None
+
+
+def install_linux_john(output_callback=None) -> bool:
+    """
+    Attempts to install John the Ripper on Linux using the system package manager.
+    Uses pkexec (PolicyKit GUI auth) or sudo.
+    Streams output via output_callback if provided.
+    """
+    if sys.platform == "win32":
+        return False
+
+    def emit(msg: str):
+        if output_callback:
+            output_callback(msg)
+        else:
+            print(msg, end="")
+
+    # Detect package manager
+    pkg_mgr = None
+    install_args = []
+    if shutil.which("apt-get"):
+        pkg_mgr = "apt-get"
+        install_args = ["install", "-y", "john"]
+    elif shutil.which("dnf"):
+        pkg_mgr = "dnf"
+        install_args = ["install", "-y", "john"]
+    elif shutil.which("pacman"):
+        pkg_mgr = "pacman"
+        install_args = ["-S", "--noconfirm", "john"]
+    elif shutil.which("zypper"):
+        pkg_mgr = "zypper"
+        install_args = ["install", "-y", "john"]
+
+    if not pkg_mgr:
+        emit("[ERROR] No supported Linux package manager found (apt-get, dnf, pacman, zypper).\n")
+        return False
+
+    emit(f"[SYSTEM] Detected Linux package manager: {pkg_mgr}\n")
+    emit(f"[SYSTEM] Requesting system authorization to install John the Ripper...\n")
+
+    is_root = False
+    try:
+        is_root = (os.geteuid() == 0)
+    except AttributeError:
+        pass
+
+    if is_root:
+        cmd = [pkg_mgr] + install_args
+    elif shutil.which("pkexec"):
+        cmd = ["pkexec", pkg_mgr] + install_args
+    elif shutil.which("sudo"):
+        cmd = ["sudo", pkg_mgr] + install_args
+    else:
+        cmd = [pkg_mgr] + install_args
+
+    try:
+        proc = subprocess.Popen(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding="utf-8",
+            errors="ignore",
+            bufsize=1
+        )
+        for line in proc.stdout:
+            emit(f"  {line.strip()}\n")
+        proc.wait()
+
+        if proc.returncode == 0:
+            emit("[SUCCESS] John the Ripper installation completed successfully!\n")
+            return find_john() is not None
+        else:
+            emit(f"[ERROR] Installation exited with code {proc.returncode}\n")
+            return False
+
+    except Exception as e:
+        emit(f"[ERROR] Could not launch installer: {e}\n")
+        return False
+
+
+def get_john_cwd_and_pot(john_exe: str):
+    """Returns (cwd_directory, pot_file_path) appropriate for Windows or Linux."""
+    if sys.platform == "win32":
+        return JOHN_DIR, os.path.join(JOHN_DIR, "john.pot")
+
+    # On Linux:
+    if os.path.dirname(john_exe) == JOHN_DIR:
+        return JOHN_DIR, os.path.join(JOHN_DIR, "john.pot")
+
+    home_pot = os.path.expanduser("~/.john/john.pot")
+    return SCRIPT_DIR, home_pot
 
 
 # PDF Hash Extraction
@@ -54,16 +172,30 @@ except ImportError:
     PYHANKO_OK = False
 
 
-def extract_pdf_info(pdf_path: str):
-    """Returns (hash_string, algo_str) or (None, None)."""
+def check_pdf_encryption(pdf_path: str):
+    """
+    Inspects a PDF to check its encryption status.
+    Returns: (status, hash_string, algo_or_detail)
+      - ("ENCRYPTED", hash_str, algo_name)
+      - ("NOT_ENCRYPTED", None, "File has no password protection")
+      - ("UNSUPPORTED", None, filter_name)
+      - ("ERROR", None, error_message)
+    """
+    if not os.path.isfile(pdf_path):
+        return "ERROR", None, "File does not exist"
     if not PYHANKO_OK:
-        return None, None
+        return "ERROR", None, "pyhanko library is not available"
+
     try:
         with open(pdf_path, "rb") as f:
             reader = PdfFileReader(f, strict=False)
             enc = reader.encrypt_dict
-            if not enc or enc.get("/Filter") != "/Standard":
-                return None, None
+            if not reader.encrypted or not enc:
+                return "NOT_ENCRYPTED", None, "File has no password protection"
+
+            filt = enc.get("/Filter")
+            if filt != "/Standard":
+                return "UNSUPPORTED", None, f"Custom DRM / Unsupported Filter: {filt}"
 
             algorithm   = enc.get("/V")
             length      = enc.get("/Length", 40)
@@ -91,11 +223,19 @@ def extract_pdf_info(pdf_path: str):
                 1: "RC4-40bit", 2: "RC4-128bit", 3: "RC4-128bit",
                 4: "AES-128",   5: "AES-256",    6: "AES-256"
             }
-            return hash_str, algo_map.get(algorithm, f"Algorithm-{algorithm}")
+            algo_name = algo_map.get(algorithm, f"Algorithm-{algorithm}")
+            return "ENCRYPTED", hash_str, algo_name
 
     except Exception as e:
-        print(f"{RED}[ERROR]{RESET} Could not read PDF: {e}")
-        return None, None
+        return "ERROR", None, str(e)
+
+
+def extract_pdf_info(pdf_path: str):
+    """Returns (hash_string, algo_str) or (None, None). Kept for backwards compatibility."""
+    status, hash_str, algo = check_pdf_encryption(pdf_path)
+    if status == "ENCRYPTED":
+        return hash_str, algo
+    return None, None
 
 
 # John the Ripper Engine Integration
@@ -105,30 +245,70 @@ def clear_john_pot(john_exe: str, hash_file: str):
     Remove any cached result for this hash from john.pot so John
     doesn't skip it and report 'No password hashes left to crack'.
     """
-    pot_file = os.path.join(JOHN_DIR, "john.pot")
+    _, pot_file = get_john_cwd_and_pot(john_exe)
     if not os.path.isfile(pot_file):
         return
-    # Read the hash we're cracking
-    with open(hash_file, "r") as hf:
-        our_hash = hf.read().strip()
-    if not our_hash:
-        return
-    # Read all pot lines and remove matching ones
-    with open(pot_file, "r", encoding="utf-8", errors="ignore") as pf:
-        lines = pf.readlines()
-    new_lines = [l for l in lines if our_hash not in l]
-    if len(new_lines) != len(lines):
-        with open(pot_file, "w", encoding="utf-8") as pf:
-            pf.writelines(new_lines)
-        print(f"  {CYAN}Cleared cached result from john.pot{RESET}")
+    try:
+        with open(hash_file, "r") as hf:
+            our_hash = hf.read().strip()
+        if not our_hash:
+            return
+        with open(pot_file, "r", encoding="utf-8", errors="ignore") as pf:
+            lines = pf.readlines()
+        new_lines = [l for l in lines if our_hash not in l]
+        if len(new_lines) != len(lines):
+            with open(pot_file, "w", encoding="utf-8") as pf:
+                pf.writelines(new_lines)
+            print(f"  {CYAN}Cleared cached result from {os.path.basename(pot_file)}{RESET}")
+    except Exception:
+        pass
 
 
-def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask: Optional[str] = None) -> Optional[str]:
+def get_windows_flags():
+    """Returns (creationflags, startupinfo) to prevent console window popups on Windows."""
+    flags = 0
+    si = None
+    if sys.platform == "win32":
+        flags = getattr(subprocess, "CREATE_NO_WINDOW", 0x08000000)
+        si = subprocess.STARTUPINFO()
+        si.dwFlags |= getattr(subprocess, "STARTF_USESHOWWINDOW", 1)
+        si.wShowWindow = getattr(subprocess, "SW_HIDE", 0)
+    return flags, si
+
+
+active_proc: Optional[subprocess.Popen] = None
+
+
+def abort_current_run():
+    """Immediately terminates the active John the Ripper process if running."""
+    global active_proc
+    if active_proc and active_proc.poll() is None:
+        try:
+            active_proc.terminate()
+            if sys.platform == "win32":
+                flags, si = get_windows_flags()
+                subprocess.run(
+                    ["taskkill", "/F", "/T", "/PID", str(active_proc.pid)],
+                    capture_output=True,
+                    creationflags=flags,
+                    startupinfo=si
+                )
+            else:
+                try:
+                    active_proc.kill()
+                except Exception:
+                    pass
+        except Exception:
+            pass
+
+
+def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask: Optional[str] = None, stop_check=None) -> Optional[str]:
     """
     Call John the Ripper as a subprocess.
     Streams output silently and shows a clean progress spinner.
     Returns the cracked password string, or None.
     """
+    global active_proc
     cmd = [john_exe, "--format=pdf", hash_file]
     if wordlist:
         cmd.append(f"--wordlist={wordlist}")
@@ -137,6 +317,8 @@ def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask
 
     found_password = None
     start_time     = time.time()
+    flags, si      = get_windows_flags()
+    cwd_dir, _     = get_john_cwd_and_pot(john_exe)
 
     try:
         proc = subprocess.Popen(
@@ -147,13 +329,24 @@ def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask
             encoding="utf-8",
             errors="ignore",
             bufsize=1,
-            cwd=JOHN_DIR
+            cwd=cwd_dir,
+            creationflags=flags,
+            startupinfo=si
         )
+        active_proc = proc
 
         spinner = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"]
         spin_idx = 0
 
         for line in proc.stdout:
+            if stop_check and not stop_check():
+                proc.terminate()
+                try:
+                    proc.wait(timeout=2)
+                except subprocess.TimeoutExpired:
+                    proc.kill()
+                return None
+
             line_s = line.strip()
             if not line_s:
                 continue
@@ -172,8 +365,11 @@ def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask
         print(f"\n{RED}[ERROR]{RESET} John executable not found: {john_exe}")
         return None
     except KeyboardInterrupt:
-        proc.terminate()
+        if proc:
+            proc.terminate()
         return None
+    finally:
+        active_proc = None
 
     sys.stdout.write("\r" + " " * 50 + "\r")
     sys.stdout.flush()
@@ -188,13 +384,17 @@ def run_john(john_exe: str, hash_file: str, wordlist: Optional[str] = None, mask
 def read_from_pot(john_exe: str, hash_file: str) -> Optional[str]:
     """Ask John to show cracked passwords via --show flag."""
     try:
+        flags, si  = get_windows_flags()
+        cwd_dir, _ = get_john_cwd_and_pot(john_exe)
         result = subprocess.run(
             [john_exe, "--show", "--format=pdf", hash_file],
             capture_output=True,
             text=True,
             encoding="utf-8",
             errors="ignore",
-            cwd=JOHN_DIR
+            cwd=cwd_dir,
+            creationflags=flags,
+            startupinfo=si
         )
         output = result.stdout.strip()
         # Output format: "pdf.pdf:462151:..."  or "462151 (pdf.pdf)"
@@ -256,8 +456,16 @@ def main():
 
     # ── Find John ─────────────────────────────────────
     john_exe = find_john()
+    if not john_exe and sys.platform != "win32":
+        print(f"\n  {YELLOW}[NOTICE]{RESET} John the Ripper not found on Linux. Installing...")
+        if install_linux_john():
+            john_exe = find_john()
+
     if not john_exe:
-        print(f"{RED}[ERROR]{RESET} John the Ripper not found in: {JOHN_DIR}")
+        if sys.platform == "win32":
+            print(f"{RED}[ERROR]{RESET} John the Ripper not found in: {JOHN_DIR}")
+        else:
+            print(f"{RED}[ERROR]{RESET} John the Ripper not found. Please run: sudo apt install john")
         sys.exit(1)
 
     pdf_size_mb = os.path.getsize(args.pdf) / (1024 * 1024)

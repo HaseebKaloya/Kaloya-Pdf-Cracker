@@ -1,0 +1,7 @@
+# Kaloya PDF Cracker - Runtime Dependencies
+PyQt5>=5.15.0
+pyHanko>=0.20.0
+cryptography>=40.0.0
+
+# Build Dependencies (Optional: required for compiling standalone binary)
+pyinstaller>=6.0.0
