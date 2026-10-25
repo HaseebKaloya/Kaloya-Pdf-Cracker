@@ -28,6 +28,10 @@ john/run/john.rec
 # ── Installer build output (the .exe goes to GitHub Releases, not the repo) ──
 installer/Output/
 
+# ── Local raw video recordings & uncropped captures (kept for local reference) ──
+media/
+*.mp4
+
 # ── Old/redundant image files (replaced by correct .bmp versions) ─────────────
 installer/wizard_sidebar.png
 installer/wizard_header.png

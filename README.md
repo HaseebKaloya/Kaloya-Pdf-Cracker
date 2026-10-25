@@ -25,12 +25,24 @@ This is not a script. It is a deployable desktop application, built for Windows,
 
 ## Demo
 
-> Record your own walkthrough and add it here. To embed a screen recording: record your session, drag-and-drop the file into a GitHub Issue comment box to upload it, copy the resulting URL, then embed it below.
+<div align="center">
+  <img src="docs/images/demo.gif" alt="Kaloya PDF Cracker Attack Walkthrough" width="850">
+  <p><i>Live demonstration: Decrypting an RC4-128 protected PDF in seconds using the Dynamic Digits mask engine.</i></p>
+</div>
 
-<!-- REPLACE THIS BLOCK WITH YOUR RECORDING URL -->
-<!-- ![Kaloya PDF Cracker Demo](.github/demo.gif) -->
+---
 
-*Screen recording coming soon.*
+## Interface Showcase
+
+| Primary Dashboard (Idle State) | Active Execution & Telemetry |
+|:---:|:---:|
+| <img src="docs/screenshots/01_dashboard_idle.png" width="450" alt="Primary Dashboard"> | <img src="docs/screenshots/02_cracking_active.png" width="450" alt="Active Cracking Terminal"> |
+| *Air-gapped target selection and attack configuration* | *Real-time candidate iteration and non-blocking worker thread* |
+
+| Cryptographic Recovery Modal | High-DPI Modern Setup Wizard |
+|:---:|:---:|
+| <img src="docs/screenshots/03_cracking_success.png" width="450" alt="Cracking Success Modal"> | <img src="docs/screenshots/04_setup_wizard.png" width="450" alt="Inno Setup Wizard"> |
+| *Instant plaintext extraction with cached potfile registry* | *Zero-UAC user-space installer with embedded cyber branding* |
 
 ---
 
