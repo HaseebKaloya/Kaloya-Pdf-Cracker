@@ -164,33 +164,55 @@ The mask engine uses John the Ripper's `--mask=?d?d...` feature to systematicall
 
 ```
 kaloya-pdf-cracker/
-├── main.py                  # Application entry point
-├── cracker.py               # Core cracking engine and hash extraction
-├── build.bat                # One-click PyInstaller build script
-├── build.spec               # PyInstaller configuration
-├── DISCLAIMER.txt           # License and legal disclaimer
-├── LICENSE                  # MIT License
+├── main.py                     # Application entry point & Qt event loop
+├── cracker.py                  # Cryptographic engine, JtR wrapper & Linux resolver
+├── requirements.txt            # Python dependencies (PyQt5, pyHanko, Cryptography)
+├── uac_manifest.xml            # Windows asInvoker non-admin execution manifest
+├── build.spec                  # PyInstaller standalone configuration
+├── build.bat                   # Automated compilation script for Windows
+├── DISCLAIMER.txt              # Security, legal, and compliance notices
+├── LICENSE                     # MIT License
 │
-├── gui/
-│   ├── main_window.py       # PyQt5 main window and UI logic
-│   ├── worker.py            # Background QThread cracker worker
-│   ├── styles.qss           # Application stylesheet
-│   ├── logo.ico             # Application icon
-│   └── logo.png             # Logo image (sidebar)
+├── gui/                        # Tactical Cyberpunk GUI Frontend
+│   ├── main_window.py          # MainWindow, navigation, and custom popup modals
+│   ├── worker.py               # Background QThread worker for non-blocking UI
+│   ├── styles.qss              # Custom dark-theme Qt stylesheet & neon accents
+│   ├── logo.ico                # Multi-resolution application icon (16px to 256px)
+│   ├── logo.png                # Transparent high-resolution cyber shield emblem
+│   └── HaseebKaloya.jpg        # Author avatar for developer profile card
 │
-├── john/
-│   └── run/                 # John the Ripper binaries and config files
+├── john/                       # Embedded Password Auditing Core
+│   └── run/                    # Pre-compiled multi-architecture binaries & potfile
 │
-├── installer/
-│   ├── setup.iss            # Inno Setup installer script
-│   ├── wizard_sidebar.png   # Installer sidebar image
-│   └── wizard_header.png    # Installer header image
+├── installer/                  # Inno Setup Packaging
+│   ├── setup.iss               # Inno Setup 6 compilation script (lowest privileges)
+│   ├── wizard_sidebar.bmp      # Ultra-HD 480x920 Modern Dark sidebar artwork
+│   ├── wizard_sidebar.png      # Portable sidebar source image
+│   ├── wizard_header.bmp       # High-DPI 147x147 setup header emblem
+│   └── wizard_header.png       # Portable header source image
 │
-├── docs/
-│   ├── TECHNICAL.md         # Architecture and implementation details
-│   ├── WORDLIST_GUIDE.md    # Guide to finding and using wordlists
-│   ├── images/              # README images and banners
-│   └── icons/               # SVG icons
+├── docs/                       # Project Documentation & Assets
+│   ├── TECHNICAL.md            # Deep-dive architecture and hashing mechanics
+│   ├── WORDLIST_GUIDE.md       # Public dictionary recommendations and sourcing
+│   ├── images/                 # Hero banners, diagrams, and demo.gif
+│   │   ├── hero_banner.png     # Repository hero presentation banner
+│   │   ├── demo.gif            # 1.37 MB optimized animated attack walkthrough
+│   │   ├── feature_digits.png  # Dynamic Digits vector illustration
+│   │   └── feature_wordlist.png# Dictionary attack vector illustration
+│   └── screenshots/            # Pixel-perfect application window captures
+│       ├── 01_dashboard_idle.png    # Primary dashboard in standby
+│       ├── 02_cracking_active.png   # Active cracking terminal and progress
+│       ├── 03_cracking_success.png  # Critical success recovery popup
+│       └── 04_setup_wizard.png      # Modern dark installer wizard
+│
+└── wiki/                       # Official GitHub Wiki Documentation Suite
+    ├── Home.md                 # Knowledge base home and architectural principles
+    ├── Installation-and-Setup.md # Standalone distribution and source setup
+    ├── Usage-and-Attack-Vectors.md # Complete operational manual and attack vectors
+    ├── Linux-Guide.md          # Linux engine resolution and package provisioning
+    ├── Troubleshooting-and-FAQ.md # Diagnostic solutions, AV heuristics, and FAQ
+    ├── _Sidebar.md             # GitHub Wiki sidebar navigation hierarchy
+    └── _Footer.md              # Documentation copyright and author footer
 ```
 
 ---
