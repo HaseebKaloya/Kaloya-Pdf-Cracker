@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/python-3.9%2B-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 [![Version](https://img.shields.io/badge/version-1.0.0-brightgreen?style=flat-square)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/releases)
+[![YouTube](https://img.shields.io/badge/YouTube-Watch%20Demo-red?style=flat-square&logo=youtube)](https://www.youtube.com/watch?v=jiOTzxj-Qvw)
 [![Wiki](https://img.shields.io/badge/documentation-GitHub%20Wiki-brightgreen?style=flat-square&logo=gitbook)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/wiki)
 [![Stars](https://img.shields.io/github/stars/HaseebKaloya/Kaloya-Pdf-Cracker?style=flat-square)](https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker/stargazers)
 
@@ -20,6 +21,24 @@ Kaloya PDF Cracker is a professional-grade PDF password recovery tool for Window
 The tool does not implement its own cryptographic engine. Instead, it wraps **John the Ripper**, a well-established open-source password security auditing tool, so every attack runs at native binary speed. PDF hash extraction is handled by the **pyhanko** library, which reliably reads the encryption metadata from standard and legacy PDF security handlers.
 
 This is not a script. It is a deployable desktop application, built for Windows, distributed with a proper installer and no external dependencies required.
+
+---
+
+## 🎬 Video Walkthrough & Live Demonstration
+
+<div align="center">
+
+[![Kaloya PDF Cracker Video Walkthrough](https://img.youtube.com/vi/jiOTzxj-Qvw/maxresdefault.jpg)](https://www.youtube.com/watch?v=jiOTzxj-Qvw)
+
+[![Watch on YouTube](https://img.shields.io/badge/YouTube-Watch%20in%201080p%20HD-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=jiOTzxj-Qvw)
+[![Subscribe](https://img.shields.io/badge/Channel-@haseeb.kaloya-blue?style=for-the-badge&logo=youtube)](https://youtube.com/@haseeb.kaloya)
+
+<p>
+  <b>⚡ Click the preview player above to watch the full step-by-step walkthrough in 1080p Full HD on YouTube!</b><br>
+  <i>Covers legal disclaimer, Zero-UAC installation, RC4-128 hash extraction, multi-core AVX2 cracking, and instant document decryption.</i>
+</p>
+
+</div>
 
 ---
 
