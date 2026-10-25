@@ -30,6 +30,7 @@ installer/Output/
 
 # ── Local raw video recordings & uncropped captures (kept for local reference) ──
 media/
+video_production/
 *.mp4
 
 # ── Old/redundant image files (replaced by correct .bmp versions) ─────────────
