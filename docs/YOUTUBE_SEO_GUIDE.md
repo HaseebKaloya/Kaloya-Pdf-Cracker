@@ -28,33 +28,49 @@ YouTube allows you to place a persistent branding watermark in the bottom-right 
   6. Under **Display time**, select: **`Entire video`** (Recommended so viewers can subscribe at any second).
   7. Click **Publish** at the top right.
 
-### B. Channel Basic Info
-In **YouTube Studio ➔ Customization ➔ Basic info**:
+### B. Channel Basic Info (YouTube Studio ➔ Customization ➔ Basic info)
 * **Name:** `Haseeb Kaloya`
 * **Handle:** `@haseeb.kaloya`
-* **Description:**
+* **Channel Description (Copy & Paste Everything Below):**
   ```text
-  Welcome to the official channel of Haseeb Kaloya — Software Engineer & Cryptographic Security Researcher.
+  Welcome to the official channel of Haseeb Kaloya — Full Stack & AI Developer, Software Engineer, and Automation Specialist.
 
-  Here you will find deep dives into custom-engineered security tools, offline password recovery engines, Python desktop application architecture, and tactical ethical security workflows.
+  Here, we build and break real-world software. From high-performance Python desktop suites and ethical cybersecurity tools to custom AI integrations, browser extensions, and workflow automations — this channel is dedicated to practical, production-grade engineering without the fluff.
 
-  🌐 GitHub: https://github.com/HaseebKaloya
-  📧 Inquiries: contact.haseebkaloya@gmail.com
+  🚀 WHAT YOU'LL FIND ON THIS CHANNEL:
+  • 🛡️ Cybersecurity & Defensive Cryptography: Offline password recovery suites, hash auditing engines (John the Ripper, AVX2 optimization), and secure software architecture.
+  • 💻 Python Desktop Engineering: Building modern, multi-threaded GUI applications using PyQt5/PySide, SQLite WAL persistence, and C/C++ engine integrations.
+  • 🤖 Automation & Smart Systems: Batch media extraction suites (Bulk Video Downloader), web scraping engines, and AI model workflows that eliminate repetitive tasks.
+  • 🧩 Browser & Web Extension Development: Chrome Extensions (Manifest V3) for automated formatting, UI utilities, and social platform management.
+  • 📂 Open-Source Breakdowns: Complete code walkthroughs, architectural breakdowns, and free open-source releases you can inspect, audit, and use.
+
+  💡 ABOUT HASEEB KALOYA:
+  I design custom software, build offline-first tools, and engineer automated systems that solve complex problems. All major utilities featured on this channel are backed by public repositories and release binaries available on my GitHub.
+
+  🔗 OFFICIAL LINKS & CONNECT:
+  • 🌐 GitHub Portfolio: https://github.com/HaseebKaloya
+  • 💻 Featured Repositories: Kaloya-PDF-Cracker, Bulk-Video-Downloader, Kaloya-ID-Formatter
+  • 📧 Business, Collaborations & Inquiries: contact.haseebkaloya@gmail.com
+
+  🔔 Subscribe and turn on notifications to stay ahead in Python engineering, cybersecurity tooling, and smart automation!
   ```
-* **Links:** Add link titled `GitHub Repository` pointing to `https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker`.
-* **Contact info:** `contact.haseebkaloya@gmail.com`.
+* **Links:**
+  * Title: `GitHub Profile` ➔ URL: `https://github.com/HaseebKaloya`
+  * Title: `Kaloya PDF Cracker` ➔ URL: `https://github.com/HaseebKaloya/Kaloya-Pdf-Cracker`
+* **Contact info (Email):** `contact.haseebkaloya@gmail.com`
 
 ---
 
-## ⚙️ 2. Backend Channel Settings (Algorithm Optimization)
+## ⚙️ 2. Backend Channel Settings (Algorithm & Search Optimization)
 
 In [YouTube Studio](https://studio.youtube.com), click the gear icon **Settings** (`⚙️`) at the bottom left:
 
 ### A. Settings ➔ Channel ➔ Basic Info:
 * **Country of Residence:** Select your country.
-* **Keywords (Channel Tags):** Copy and paste the entire block below into the Keywords box:
+* **Keywords (Channel Tags - Max 500 Chars):**  
+  Copy and paste this exact comma-separated tag cluster into your Channel Keywords box:
   ```text
-  Haseeb Kaloya, Kaloya PDF Cracker, PDF Password Recovery, Unlock PDF Password, Ethical Hacking, John the Ripper Windows, Python Cybersecurity, How to Recover PDF Password, PDF Decryption Tool, Multi-Core Cracking, Cryptography Python, PyQt5 Software, Offline PDF Unlocker
+  Haseeb Kaloya, haseeb.kaloya, HaseebKaloya, Kaloya, Python Automation, Cybersecurity Tools, Ethical Hacking, Kaloya PDF Cracker, Python PyQt5, Desktop Software Development, Python Projects, Password Recovery, John the Ripper Windows, Cryptography Python, Chrome Extension Development, AI Automation, Full Stack Developer, Software Engineer, Open Source Tools, Batch Video Downloader
   ```
 
 ### B. Settings ➔ Channel ➔ Advanced Settings:
